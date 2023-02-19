@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/ios.dart';
 import 'second_page.dart';
 import 'meal_plan.dart';
-import 'globals.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,8 +30,6 @@ class FirstPage extends StatefulWidget {
   @override
   _FirstPageState createState() => _FirstPageState();
 }
-
-List<String> globalFoodItems = [];
 
 class _FirstPageState extends State<FirstPage> {
   List<String> _foodItems = [];
@@ -159,7 +156,9 @@ class _FirstPageState extends State<FirstPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return MealPlanPage();
+                  return MealPlanPage(
+                    mealList: _foodItems,
+                  );
                 },
               ),
             );
