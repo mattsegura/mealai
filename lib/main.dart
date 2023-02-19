@@ -32,6 +32,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   List<String> _foodItems = [];
+  final TextEditingController _searchController = TextEditingController();
 
   // This method updates the list of food items when it is called from SecondPage.
   void _handleFoodItemsUpdated(List<String> foodItems) {
@@ -54,13 +55,33 @@ class _FirstPageState extends State<FirstPage> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: _foodItems.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_foodItems[index]),
-                );
-              },
+            child: Visibility(
+              visible: _foodItems.isNotEmpty,
+              child: ListView.builder(
+                itemCount: _foodItems.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    key: Key(_foodItems[index]),
+                    onDismissed: (direction) {
+                      setState(() {
+                        _foodItems.removeAt(index);
+                      });
+                    },
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      padding: EdgeInsets.only(right: 20.0),
+                      color: Colors.red,
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(_foodItems[index]),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Positioned(
@@ -77,8 +98,15 @@ class _FirstPageState extends State<FirstPage> {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: _searchController,
+                      onSubmitted: (value) {
+                        setState(() {
+                          _foodItems.add(value);
+                        });
+                      },
                       decoration: InputDecoration(
-                        hintText: "Search",
+                        hintText: "Search for food",
+                        prefixIcon: Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(30.0),
@@ -119,7 +147,7 @@ class _FirstPageState extends State<FirstPage> {
         unselectedItemColor: Colors.white,
         items: const [
           BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
+          BottomNavigationBarItem(label: 'Meal Plan', icon: Icon(Icons.book)),
           BottomNavigationBarItem(label: 'More', icon: Icon(Icons.more)),
         ],
       ),
