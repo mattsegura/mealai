@@ -14,8 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String buttonName = 'Click';
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -25,8 +23,27 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
+class FirstPage extends StatefulWidget {
+  const FirstPage({Key? key}) : super(key: key);
+
+  @override
+  _FirstPageState createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
+  List<String> _foodItems = [];
+
+  // This method updates the list of food items when it is called from SecondPage.
+  void _handleFoodItemsUpdated(List<String> foodItems) {
+    setState(() {
+      for (final item in foodItems) {
+        if (!_foodItems.contains(item)) {
+          _foodItems.add(item);
+        }
+      }
+    });
+    print("Food items updated: $_foodItems");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +51,18 @@ class FirstPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("MealAI"),
       ),
-      body: Stack(
+      body: Column(
         children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: _foodItems.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(_foodItems[index]),
+                );
+              },
+            ),
+          ),
           Positioned(
             bottom: 0,
             child: Container(
@@ -44,10 +71,7 @@ class FirstPage extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
               decoration: const BoxDecoration(
                 color: Color(0xFF0066EE),
-                borderRadius: BorderRadius.only(
-                    // topLeft: Radius.circular(20.0),
-                    // topRight: Radius.circular(20.0),
-                    ),
+                borderRadius: BorderRadius.only(),
               ),
               child: Row(
                 children: [
@@ -72,7 +96,9 @@ class FirstPage extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return SecondPage();
+                            return SecondPage(
+                              onFoodItemsUpdated: _handleFoodItemsUpdated,
+                            );
                           },
                         ),
                       );
@@ -89,33 +115,14 @@ class FirstPage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         backgroundColor: Color(0xFF0066EE),
-        selectedItemColor:
-            Colors.white, // set the color of the selected icon and label
-        unselectedItemColor:
-            Colors.white, // set the color of the unselected icon and label
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
         items: const [
           BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
           BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
-          BottomNavigationBarItem(label: 'More', icon: Icon(Icons.more))
+          BottomNavigationBarItem(label: 'More', icon: Icon(Icons.more)),
         ],
       ),
     );
   }
 }
-
-
-/*
-bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        backgroundColor: Color(0xFF0066EE),
-        selectedItemColor:
-            Colors.white, // set the color of the selected icon and label
-        unselectedItemColor:
-            Colors.white, // set the color of the unselected icon and label
-        items: const [
-          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
-          BottomNavigationBarItem(label: 'More', icon: Icon(Icons.more))
-        ],
-      ), 
-*/
