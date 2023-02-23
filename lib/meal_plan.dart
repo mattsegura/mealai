@@ -15,11 +15,13 @@ class _MealPlanPageState extends State<MealPlanPage> {
   String _responseText = '';
 
   Future<String> testAskEndpoint() async {
+    // Set up the URL and prompt string for the HTTP request
     final String url = 'http://167.99.155.246:8000/ask/';
     final String prompt = widget.mealList.join(', ');
-    final String urlWithQuery = '$url?prompt=$prompt';
+    final String urlWithQuery = '$url?prompt=Make me a meal plan using $prompt';
 
     try {
+      // Make the HTTP request with the given URL and prompt
       final response = await http.post(
         Uri.parse(urlWithQuery),
         headers: <String, String>{
@@ -28,13 +30,16 @@ class _MealPlanPageState extends State<MealPlanPage> {
         body: jsonEncode({}),
       );
 
+      // If the response is successful, return the response body
       if (response.statusCode == 200) {
         return response.body;
       } else {
+        // If the response is unsuccessful, print the error and return an empty string
         print('Request failed with status: ${response.statusCode}.');
         return '';
       }
     } catch (e) {
+      // If there is an error, print the error and return an empty string
       print('Error sending request: $e');
       return '';
     }
