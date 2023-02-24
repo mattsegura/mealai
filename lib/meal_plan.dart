@@ -13,6 +13,10 @@ class MealPlanPage extends StatefulWidget {
 
 class _MealPlanPageState extends State<MealPlanPage> {
   String _responseText = '';
+  double _value = 500;
+  int _protein = 0;
+  int _fat = 0;
+  int _carbs = 0;
 
   Future<String> testAskEndpoint() async {
     // Set up the URL and prompt string for the HTTP request
@@ -85,17 +89,63 @@ class _MealPlanPageState extends State<MealPlanPage> {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                readOnly: true,
-                controller: TextEditingController(text: _responseText),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Response',
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Calories: ${_value.round()}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
+                  ),
                 ),
-                maxLines: null,
-              ),
+                Slider(
+                  value: _value,
+                  min: 500,
+                  max: 5000,
+                  divisions: 45,
+                  label: _value.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _value = value;
+                    });
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Protein',
+                        ),
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Fat',
+                        ),
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Carbs',
+                        ),
+                      ),
+                      TextFormField(
+                        readOnly: true,
+                        controller: TextEditingController(text: _responseText),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Response',
+                        ),
+                        maxLines: null,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -105,7 +155,8 @@ class _MealPlanPageState extends State<MealPlanPage> {
           final String response = await testAskEndpoint();
           print(response);
           setState(() {
-            _responseText = response;
+            final decodedResponse = json.decode(response);
+            _responseText = decodedResponse["response"]["message"];
           });
         },
         child: Icon(Icons.send),
