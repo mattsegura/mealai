@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: FirstPage(),
+        theme: new ThemeData(
+            scaffoldBackgroundColor: Color.fromRGBO(225, 238, 255, 1)),
       ),
     );
   }
