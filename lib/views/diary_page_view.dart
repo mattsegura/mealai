@@ -92,47 +92,10 @@ class _MealPlanPageState extends State<MealPlanPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Calories: ${_value.round()}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
-                  ),
-                ),
-                Slider(
-                  value: _value,
-                  min: 500,
-                  max: 5000,
-                  divisions: 45,
-                  label: _value.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _value = value;
-                    });
-                  },
-                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Protein',
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Fat',
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Carbs',
-                        ),
-                      ),
                       TextFormField(
                         readOnly: true,
                         controller: TextEditingController(text: _responseText),

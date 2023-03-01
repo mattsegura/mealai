@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_launcher_icons/ios.dart';
 import 'package:provider/provider.dart';
 import 'package:newapp/models/food_items_model.dart';
-import 'second_page.dart';
-import 'meal_plan.dart';
+import 'barcode_scanning.dart';
+import 'diary_page_view.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'widgets/appbar.dart';
+import 'widgets/macro_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,60 +33,7 @@ class FirstPage extends StatelessWidget {
     final foodItemsModel = Provider.of<FoodItemsModel>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  // do something when the back arrow button is tapped
-                },
-                color: Colors.black,
-              ),
-              const Text(
-                'Today',
-                style: TextStyle(
-                  color: Colors.black, // set the color of the title text
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.arrow_forward),
-                onPressed: () {
-                  // do something when the forward arrow button is tapped
-                },
-                color: Colors.black,
-              ),
-            ],
-          ),
-        ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(
-                right: 12.0), // set the horizontal padding to 16.0
-            child: IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: Colors
-                    .black, // set the color of the search icon button to white
-              ),
-              onPressed: () {},
-            ),
-          ),
-        ],
-        elevation: 0,
-      ),
+      appBar: MyAppBar(),
       body: Column(
         children: [
           SizedBox(height: 15),
@@ -111,103 +60,32 @@ class FirstPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularPercentIndicator(
-                          animation: true,
-                          animationDuration: 1000,
-                          radius: 50,
-                          lineWidth: 10,
-                          percent: 0.6,
-                          progressColor: Colors.blue,
-                          backgroundColor: Colors.blue.shade100,
-                          circularStrokeCap: CircularStrokeCap.round,
-                          center: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 30.0),
-                            child: Column(
-                              children: const [
-                                Text(
-                                  '120',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'Carbs',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MacroWidget(
+                            label: 'Carbs',
+                            value: 120,
+                            progressColor: Colors.blue,
+                            backgroundColor: Colors.blue.shade100,
                           ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CircularPercentIndicator(
-                          animation: true,
-                          animationDuration: 1000,
-                          radius: 50,
-                          lineWidth: 10,
-                          percent: 0.8,
-                          progressColor: Color.fromRGBO(253, 129, 205, 1),
-                          backgroundColor: Color.fromRGBO(253, 129, 205, 450),
-                          circularStrokeCap: CircularStrokeCap.round,
-                          center: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 30.0),
-                            child: Column(
-                              children: const [
-                                Text(
-                                  '150',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'Protein',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
+                          const SizedBox(width: 20),
+                          const MacroWidget(
+                            label: 'Protein',
+                            value: 150,
+                            progressColor: Color.fromRGBO(253, 129, 205, 1),
+                            backgroundColor: Color.fromRGBO(253, 129, 205, 450),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CircularPercentIndicator(
-                          animation: true,
-                          animationDuration: 1000,
-                          radius: 50,
-                          lineWidth: 10,
-                          percent: 0.4,
-                          progressColor: Color.fromRGBO(255, 193, 26, 1),
-                          backgroundColor: Color.fromRGBO(255, 193, 26, 450),
-                          circularStrokeCap: CircularStrokeCap.round,
-                          center: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 30.0),
-                            child: Column(
-                              children: const [
-                                Text(
-                                  '216',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'Fats',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
+                          const SizedBox(width: 20),
+                          const MacroWidget(
+                            label: 'Fats',
+                            value: 216,
+                            progressColor: Color.fromRGBO(255, 193, 26, 1),
+                            backgroundColor: Color.fromRGBO(255, 193, 26, 450),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        ],
+                      )),
                 ],
               ),
             ),
@@ -297,8 +175,9 @@ class FirstPage extends StatelessWidget {
         unselectedItemColor: Colors.white,
         items: const [
           BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: 'Meal Plan', icon: Icon(Icons.book)),
-          BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.more)),
+          BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
+          BottomNavigationBarItem(
+              label: 'Meal Plan', icon: Icon(Icons.spoke_rounded)),
         ],
         onTap: (index) {
           if (index == 1) {
