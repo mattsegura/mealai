@@ -7,6 +7,7 @@ import 'diary_page_view.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'widgets/appbar.dart';
 import 'widgets/macro_view.dart';
+import 'plan_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -169,6 +170,7 @@ class FirstPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: 0,
         backgroundColor: Color(0xFF0066EE),
         selectedItemColor: Colors.white,
@@ -177,7 +179,7 @@ class FirstPage extends StatelessWidget {
           BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
           BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
           BottomNavigationBarItem(
-              label: 'Meal Plan', icon: Icon(Icons.spoke_rounded)),
+              label: 'Plans', icon: Icon(Icons.spoke_rounded)),
         ],
         onTap: (index) {
           if (index == 1) {
@@ -187,6 +189,14 @@ class FirstPage extends StatelessWidget {
                   final foodItemsModel =
                       Provider.of<FoodItemsModel>(context, listen: false);
                   return MealPlanPage(mealList: foodItemsModel.foodItems);
+                },
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PlanPage();
                 },
               ),
             );
