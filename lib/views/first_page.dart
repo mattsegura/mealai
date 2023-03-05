@@ -129,7 +129,7 @@ class FirstPage extends StatelessWidget {
               color: Color(0xFF0066EE),
               borderRadius: BorderRadius.only(),
             ),
-            child: Row(
+            /* child: Row(
               children: [
                 Expanded(
                   child: TextField(
@@ -167,43 +167,57 @@ class FirstPage extends StatelessWidget {
                   label: Text('Scan'),
                 ),
               ],
-            ),
+            ), */
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0,
-        backgroundColor: Color(0xFF0066EE),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        items: const [
-          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
-          BottomNavigationBarItem(
-              label: 'Plans', icon: Icon(Icons.spoke_rounded)),
-        ],
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  final foodItemsModel =
-                      Provider.of<FoodItemsModel>(context, listen: false);
-                  return MealPlanPage(mealList: foodItemsModel.foodItems);
-                },
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return PlanPage();
-                },
-              ),
-            );
-          }
-        },
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Color(0xFF0066EE),
+        elevation: 0,
+        shape: CircularNotchedRectangle(),
+        child: SizedBox(
+          height: kBottomNavigationBarHeight,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: 0,
+            backgroundColor: Color(0xFF0066EE),
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white,
+            items: const [
+              BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
+              BottomNavigationBarItem(label: 'Diary', icon: Icon(Icons.book)),
+              BottomNavigationBarItem(
+                  label: 'Plans', icon: Icon(Icons.spoke_rounded)),
+              BottomNavigationBarItem(label: 'More', icon: Icon(Icons.more)),
+            ],
+            onTap: (index) {
+              if (index == 1) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      final foodItemsModel =
+                          Provider.of<FoodItemsModel>(context, listen: false);
+                      return MealPlanPage(mealList: foodItemsModel.foodItems);
+                    },
+                  ),
+                );
+              } else if (index == 2) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return PlanPage();
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+        ),
       ),
     );
   }
