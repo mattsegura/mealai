@@ -55,7 +55,9 @@ class FirstPage extends StatelessWidget {
                         Text(
                           "Macros",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ],
                     ),
