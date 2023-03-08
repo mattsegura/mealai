@@ -8,21 +8,22 @@ import 'package:newapp/views/navpages/more_page.dart';
 import 'package:newapp/views/navpages/plans_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  List pages = [
-    // routes to pages
+  final List<Widget> pages = [
+    // define routes to pages
     HomePage(),
     BarItemPage(),
     SearchPage(),
     MyPage(),
   ];
   int currentIndex = 0;
+
   void onTap(int index) {
     setState(() {
       currentIndex = index;
@@ -33,7 +34,11 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: pages[currentIndex],
+      body: Navigator(
+        onGenerateRoute: (settings) {
+          return MaterialPageRoute(builder: (context) => pages[currentIndex]);
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         unselectedFontSize: 0,
         selectedFontSize: 0,
@@ -49,19 +54,19 @@ class _MainPageState extends State<MainPage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
-            label: 'Dashboard', // Add a label or text
+            label: 'Dashboard',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Diary', // Add a label or text
+            label: 'Diary',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_rounded),
-            label: 'Plans', // Add a label or text
+            label: 'Plans',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.more),
-            label: 'More', // Add a label or text
+            label: 'More',
           ),
         ],
       ),

@@ -34,7 +34,6 @@ class FirstPage extends StatelessWidget {
     final foodItemsModel = Provider.of<FoodItemsModel>(context);
 
     return Scaffold(
-      appBar: MyAppBar(),
       body: Column(
         children: [
           SizedBox(height: 15),

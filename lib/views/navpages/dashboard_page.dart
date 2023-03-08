@@ -16,6 +16,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(
+        title: "Dashboard",
+        showArrows: false,
+      ),
       body: Column(
         children: [
           SizedBox(height: 15),
