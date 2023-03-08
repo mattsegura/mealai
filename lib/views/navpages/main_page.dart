@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:newapp/views/navpages/bar_item_page.dart';
-import 'package:newapp/views/navpages/home_page.dart';
-import 'package:newapp/views/navpages/my_page.dart';
-import 'package:newapp/views/navpages/search_page.dart';
+import 'package:newapp/views/navpages/diary_page.dart';
+import 'package:newapp/views/navpages/dashboard_page.dart';
+import 'package:newapp/views/navpages/more_page.dart';
+import 'package:newapp/views/navpages/plans_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -48,20 +48,20 @@ class _MainPageState extends State<MainPage> {
         elevation: 0,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.apps),
-            label: 'Home', // Add a label or text
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard', // Add a label or text
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_sharp),
-            label: 'Bar', // Add a label or text
+            icon: Icon(Icons.book),
+            label: 'Diary', // Add a label or text
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search', // Add a label or text
+            icon: Icon(Icons.chat_rounded),
+            label: 'Plans', // Add a label or text
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'My', // Add a label or text
+            icon: Icon(Icons.more),
+            label: 'More', // Add a label or text
           ),
         ],
       ),

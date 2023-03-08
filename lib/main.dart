@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newapp/views/navpages/main_page.dart';
 import 'package:provider/provider.dart';
 
-import 'views/homePage.dart';
+import 'views/first_page.dart';
 import 'models/food_items_model.dart';
 
 void main() {
