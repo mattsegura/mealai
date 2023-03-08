@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:newapp/views/navpages/main_page.dart';
 import 'package:provider/provider.dart';
 
-import 'views/first_page.dart';
+import 'views/homePage.dart';
 import 'models/food_items_model.dart';
 
 void main() {
@@ -17,9 +18,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: FirstPage(),
+        home: MainPage(),
         theme: new ThemeData(
-            scaffoldBackgroundColor: Color.fromRGBO(225, 238, 255, 1)),
+          scaffoldBackgroundColor: Color.fromRGBO(225, 238, 255, 1),
+        ),
       ),
     );
   }
