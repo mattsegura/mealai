@@ -4,8 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:newapp/views/navpages/diary_page.dart';
 import 'package:newapp/views/navpages/dashboard_page.dart';
-import 'package:newapp/views/navpages/more_page.dart';
+import 'package:newapp/views/navpages/settings_page.dart';
 import 'package:newapp/views/navpages/plans_page.dart';
+import 'package:newapp/views/navpages/addfood_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,12 +17,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final List<Widget> pages = [
-    // define routes to pages
     HomePage(),
     BarItemPage(),
     SearchPage(),
     MyPage(),
+    ProfilePage(), // add new page here
   ];
+
   int currentIndex = 0;
 
   void onTap(int index) {
@@ -38,6 +40,16 @@ class _MainPageState extends State<MainPage> {
         onGenerateRoute: (settings) {
           return MaterialPageRoute(builder: (context) => pages[currentIndex]);
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         unselectedFontSize: 0,
@@ -65,7 +77,7 @@ class _MainPageState extends State<MainPage> {
             label: 'Plans',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.more),
+            icon: Icon(Icons.settings),
             label: 'More',
           ),
         ],

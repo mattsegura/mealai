@@ -5,9 +5,16 @@ import 'package:provider/provider.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showArrows;
+  final bool showMenuButton;
+  final bool showSettingsButton;
 
-  const MyAppBar({Key? key, required this.title, this.showArrows = true})
-      : super(key: key);
+  const MyAppBar({
+    Key? key,
+    required this.title,
+    this.showArrows = true,
+    this.showMenuButton = true,
+    this.showSettingsButton = true,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -47,31 +54,36 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       centerTitle: true,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.menu,
-          color: Colors.black,
-        ),
-        onPressed: () {},
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(
-              right: 12.0), // set the horizontal padding to 16.0
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-              right: 12.0), // set the horizontal padding to 16.0
-          child: IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors
-                  .black, // set the color of the search icon button to white
-            ),
-            onPressed: () {},
-          ),
-        ),
-      ],
+      leading: showMenuButton
+          ? IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.black,
+              ),
+              onPressed: () {},
+            )
+          : null,
+      actions: showSettingsButton
+          ? [
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 12.0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 12.0,
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ]
+          : [],
       elevation: 0,
     );
   }
